@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
@@ -29,20 +30,8 @@ public class bracketsDictionary implements Dictionary {
     static final Logger log = Logger.getLogger(bracketsDictionary.class.getName());
 
     public bracketsDictionary() {
-        try {
-            file = new File("");
-            try {
-                br = new BufferedReader(
-                        new InputStreamReader(
-                                new FileInputStream(file), "UTF-8"
-                        )
-                );
-            } catch (UnsupportedEncodingException ex) {
-                log.log(Level.SEVERE, null, ex);
-            }
-        } catch (FileNotFoundException ex) {
-            log.log(Level.SEVERE, "{0}" + " " + "File Not Found", "");
-        }
+        file = new File("");
+
     }
 
     @Override
@@ -52,9 +41,38 @@ public class bracketsDictionary implements Dictionary {
         targetWordId = id;
     }
 
+    boolean openInputStream() {
+        try {
+            br = new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream(file), "UTF-8"
+                    )
+            );
+        } catch (UnsupportedEncodingException | FileNotFoundException ex) {
+            log.log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void find() {
-        
+        if (openInputStream()) {
+            while (true) {
+                String line = null;
+                try {
+                    if ((line = br.readLine()) != null) {
+                        compare(line);
+                    } else {
+                        break;
+                    }
+                } catch (IOException ex) {
+                    log.log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+
     }
 
     @Override
@@ -64,6 +82,10 @@ public class bracketsDictionary implements Dictionary {
 
     @Override
     public void toXML() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void compare(String line) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
