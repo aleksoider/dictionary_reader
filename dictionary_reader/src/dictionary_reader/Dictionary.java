@@ -10,5 +10,8 @@ package dictionary_reader;
  * @author 123
  */
 public interface Dictionary {
-    
+    public void setTargetWord(String word, int id);
+    public void find();
+    public resultObj getResultObj();
+    public void toXML();   
 }
