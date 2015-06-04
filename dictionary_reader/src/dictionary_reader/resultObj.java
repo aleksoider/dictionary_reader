@@ -13,4 +13,5 @@ public interface resultObj {
     public String getHomonym();
     public String getProperty(String key);
     public void toXML();
+    public void print();
 }

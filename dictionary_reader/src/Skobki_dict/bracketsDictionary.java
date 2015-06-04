@@ -37,8 +37,8 @@ public class bracketsDictionary implements Dictionary {
     }
 
     @Override
-    public void setTargetWord(String word, int id
-    ) {
+    public void setTargetWord(String word, int id) {
+        resultList=new ArrayList();
         targetWord = word;
         targetWordId = id;
     }
@@ -74,7 +74,12 @@ public class bracketsDictionary implements Dictionary {
 
             }
         }
-
+    }
+    public void print(){
+        System.out.println("id: "+this.targetWordId+"word: "+this.targetWord);
+        for(int i=0;i<this.resultList.size();i++){
+            resultList.get(i).print();
+        }
     }
 
     @Override
@@ -93,17 +98,17 @@ public class bracketsDictionary implements Dictionary {
         if (basis.length == 3) {
             String base = basis[0].substring(0, basis[0].length() - new Integer(basis[2])) + basis[1];
             if ((this.targetWord.toLowerCase().contains(base))) {
-                bracketsResultObj buf = new bracketsResultObj(line);
+                bracketsResultObj buf = new bracketsResultObj(splitLine);
                 this.resultList.add(buf);
             } else {
                 if ((this.targetWord.toLowerCase().contains(basis[0]))) {
-                    bracketsResultObj buf = new bracketsResultObj(line);
+                    bracketsResultObj buf = new bracketsResultObj(splitLine);
                     this.resultList.add(buf);
                 }
             }
         } else {
             if ((this.targetWord.toLowerCase().contains(basis[0]))) {
-                bracketsResultObj buf = new bracketsResultObj(line);
+                bracketsResultObj buf = new bracketsResultObj(splitLine);
                 this.resultList.add(buf);
             }
         }
