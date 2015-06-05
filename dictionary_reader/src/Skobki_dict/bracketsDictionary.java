@@ -5,6 +5,9 @@
  */
 package Skobki_dict;
 
+import Skobki_dict.comparators.concatCompare;
+import Skobki_dict.comparators.simpleCompare;
+import dictionary_reader.Comparator;
 import dictionary_reader.Dictionary;
 import dictionary_reader.resultObj;
 import java.io.BufferedReader;
@@ -31,8 +34,11 @@ public class bracketsDictionary implements Dictionary {
     File file = null;
     static final Logger log = Logger.getLogger(bracketsDictionary.class.getName());
     ArrayList<resultObj> resultList;
-
+    ArrayList<Comparator> comparators;
     public bracketsDictionary() {
+        comparators=new ArrayList();
+        comparators.add(new simpleCompare());
+        comparators.add(new concatCompare());
         file = new File("VL.txt");
     }
 
@@ -98,25 +104,31 @@ public class bracketsDictionary implements Dictionary {
     private void compare(String line) {
         String[] splitLine = line.split(";");
         String[] basis = splitLine[0].split(",");
-        if (basis.length == 3) {
-            if (basis[0].length() >= new Integer(basis[2])) {
-                String base = basis[0].substring(0, basis[0].length() - new Integer(basis[2])) + basis[1];
-                if ((this.targetWord.toLowerCase().startsWith(base))) {
-                    bracketsResultObj buf = new bracketsResultObj(splitLine);
-                    this.resultList.add(buf);
-                } else {
-                    if ((this.targetWord.toLowerCase().startsWith(basis[0]))) {
-                        bracketsResultObj buf = new bracketsResultObj(splitLine);
-                        this.resultList.add(buf);
-                    }
-                }
-            }
-        } else {
-            if ((this.targetWord.toLowerCase().startsWith(basis[0]))) {
+        for (int i = 0; i < comparators.size(); i++) {
+            if (comparators.get(i).compare(basis, targetWord)) {
                 bracketsResultObj buf = new bracketsResultObj(splitLine);
                 this.resultList.add(buf);
             }
         }
+//        if (basis.length == 3) {
+//            if (basis[0].length() >= new Integer(basis[2])) {
+//                String base = basis[0].substring(0, basis[0].length() - new Integer(basis[2])) + basis[1];
+//                if ((this.targetWord.toLowerCase().startsWith(base))) {
+//                    bracketsResultObj buf = new bracketsResultObj(splitLine);
+//                    this.resultList.add(buf);
+//                } else {
+//                    if ((this.targetWord.toLowerCase().startsWith(basis[0]))) {
+//                        bracketsResultObj buf = new bracketsResultObj(splitLine);
+//                        this.resultList.add(buf);
+//                    }
+//                }
+//            }
+//        } else {
+//            if ((this.targetWord.toLowerCase().startsWith(basis[0]))) {
+//                bracketsResultObj buf = new bracketsResultObj(splitLine);
+//                this.resultList.add(buf);
+//            }
+//        }
     }
 
 }

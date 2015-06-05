@@ -10,5 +10,5 @@ package dictionary_reader;
  * @author micen
  */
 public interface Comparator {
-    
+    public boolean compare(String[] basis,String target);
 }
