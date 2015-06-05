@@ -5,6 +5,8 @@
  */
 package dictionary_reader;
 
+import Skobki_dict.bracketsDictionary;
+
 /**
  *
  * @author 123
@@ -16,6 +18,9 @@ public class Dictionary_reader {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Dictionary dict=new bracketsDictionary();
+        dict.setTargetWord("вершины", 1);
+        dict.find();
     }
     
 }

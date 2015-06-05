@@ -50,7 +50,7 @@ public class bracketsResultObj implements resultObj{
     public void print() {
         System.out.println(homonym);
         for(HashMap.Entry<String, String> e : this.properties.entrySet()) {
-            System.out.println(e.getKey());
+            System.out.print(e.getKey()+" : ");
             System.out.println(e.getValue());
         }
         System.out.println("");

@@ -26,14 +26,14 @@ public class bracketsDictionary implements Dictionary {
 
     String targetWord;
     int targetWordId;
+    int id=0;
     BufferedReader br = null;
     File file = null;
     static final Logger log = Logger.getLogger(bracketsDictionary.class.getName());
     ArrayList<resultObj> resultList;
 
     public bracketsDictionary() {
-        file = new File("");
-
+        file = new File("VL.txt");
     }
 
     @Override
@@ -64,6 +64,7 @@ public class bracketsDictionary implements Dictionary {
                 String line = null;
                 try {
                     if ((line = br.readLine()) != null) {
+                        id++;
                         compare(line);
                     } else {
                         break;
@@ -74,10 +75,12 @@ public class bracketsDictionary implements Dictionary {
 
             }
         }
+        print();
     }
-    public void print(){
-        System.out.println("id: "+this.targetWordId+"word: "+this.targetWord);
-        for(int i=0;i<this.resultList.size();i++){
+
+    public void print() {
+        System.out.println("id: " + this.targetWordId + "; word: " + this.targetWord);
+        for (int i = 0; i < this.resultList.size(); i++) {
             resultList.get(i).print();
         }
     }
@@ -96,18 +99,20 @@ public class bracketsDictionary implements Dictionary {
         String[] splitLine = line.split(";");
         String[] basis = splitLine[0].split(",");
         if (basis.length == 3) {
-            String base = basis[0].substring(0, basis[0].length() - new Integer(basis[2])) + basis[1];
-            if ((this.targetWord.toLowerCase().contains(base))) {
-                bracketsResultObj buf = new bracketsResultObj(splitLine);
-                this.resultList.add(buf);
-            } else {
-                if ((this.targetWord.toLowerCase().contains(basis[0]))) {
+            if (basis[0].length() >= new Integer(basis[2])) {
+                String base = basis[0].substring(0, basis[0].length() - new Integer(basis[2])) + basis[1];
+                if ((this.targetWord.toLowerCase().startsWith(base))) {
                     bracketsResultObj buf = new bracketsResultObj(splitLine);
                     this.resultList.add(buf);
+                } else {
+                    if ((this.targetWord.toLowerCase().startsWith(basis[0]))) {
+                        bracketsResultObj buf = new bracketsResultObj(splitLine);
+                        this.resultList.add(buf);
+                    }
                 }
             }
         } else {
-            if ((this.targetWord.toLowerCase().contains(basis[0]))) {
+            if ((this.targetWord.toLowerCase().startsWith(basis[0]))) {
                 bracketsResultObj buf = new bracketsResultObj(splitLine);
                 this.resultList.add(buf);
             }
