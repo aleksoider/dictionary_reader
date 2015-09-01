@@ -51,11 +51,18 @@ public class Dictionary_reader {
         // TODO code application logic here
        Dictionary dict=new bracketsDictionary();
        dict.setTargetWord("вершины", 1);
-        dict.find();
-        System.out.println("==========================================");
-        Dictionary dict2 = new fullDictionary();
-        dict2.setTargetWord("вершины", 1);
-        dict2.find();
+       dict.find();
+       System.out.println("==========================================");
+       resultObj result=dict.getNextResultObj();
+       while(result != null){
+           result.print();
+           result=dict.getNextResultObj();
+           //result.getHomonym();       вытащить само слово
+           //result.getProperty("ЛН")   вытащить значение свойства "ЛН", если его нет придет "no such key"
+       }
+//        Dictionary dict2 = new fullDictionary();
+//        dict2.setTargetWord("вершины", 1);
+//        dict2.find();
     }
 
 }
