@@ -98,7 +98,7 @@ public class fullDictionary implements Dictionary {
     }
 
     @Override
-    public resultObj getResultObj() {
+    public resultObj getNextResultObj() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
