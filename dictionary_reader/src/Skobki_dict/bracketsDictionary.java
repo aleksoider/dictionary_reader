@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,6 +36,8 @@ public class bracketsDictionary implements Dictionary {
     static final Logger log = Logger.getLogger(bracketsDictionary.class.getName());
     ArrayList<resultObj> resultList;
     ArrayList<Comparator> comparators;
+    Iterator<resultObj> iterator;
+    
     public bracketsDictionary() {
         comparators=new ArrayList();
         comparators.add(new simpleCompare());
@@ -81,7 +84,8 @@ public class bracketsDictionary implements Dictionary {
 
             }
         }
-        print();
+       iterator = resultList.iterator();
+       // print();
     }
 
     public void print() {
@@ -92,8 +96,14 @@ public class bracketsDictionary implements Dictionary {
     }
 
     @Override
-    public resultObj getResultObj() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public resultObj getNextResultObj() {
+        resultObj buf;
+        if(iterator.hasNext()){
+           buf = iterator.next();
+           return buf;          
+        }
+        else
+            return null;
     }
 
     @Override
