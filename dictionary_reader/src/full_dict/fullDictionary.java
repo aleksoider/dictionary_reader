@@ -115,4 +115,9 @@ public class fullDictionary implements Dictionary {
             this.resultList.add(new fullDictResultObj(split));
         }
     }
+
+    @Override
+    public ArrayList<resultObj> findWordsByKeyValue(String key, String value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

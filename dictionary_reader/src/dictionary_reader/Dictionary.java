@@ -5,6 +5,8 @@
  */
 package dictionary_reader;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 123
@@ -12,6 +14,7 @@ package dictionary_reader;
 public interface Dictionary {
     public void setTargetWord(String word, int id);
     public void find();
+    public ArrayList<resultObj> findWordsByKeyValue(String key, String value);
     public resultObj getNextResultObj();
     public void toXML();   
 }

@@ -55,11 +55,14 @@ public class Dictionary_reader {
        System.out.println("==========================================");
        resultObj result=dict.getNextResultObj();
        while(result != null){
-           result.print();
+          // result.print();
+           System.out.println(result.getHomonym());    //   вытащить само слово
+           System.out.println(result.getProperty("ЛН"));//   вытащить значение свойства "ЛН", если его нет придет "no such key"
            result=dict.getNextResultObj();
-           //result.getHomonym();       вытащить само слово
-           //result.getProperty("ЛН")   вытащить значение свойства "ЛН", если его нет придет "no such key"
        }
+       result=dict.getNextResultObj();
+       ArrayList<resultObj> ar=dict.findWordsByKeyValue("ЛН", "19838");
+       System.out.println(ar.size());
 //        Dictionary dict2 = new fullDictionary();
 //        dict2.setTargetWord("вершины", 1);
 //        dict2.find();

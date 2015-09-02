@@ -51,7 +51,27 @@ public class bracketsDictionary implements Dictionary {
         targetWord = word;
         targetWordId = id;
     }
-
+    public ArrayList<resultObj> findWordsByKeyValue(String key, String value){
+        ArrayList<resultObj> buf=new ArrayList();
+        if (openInputStream()) {
+            while (true) {
+                String line = null;
+                try {
+                    if ((line = br.readLine()) != null) {
+                        id++;
+                        resultObj bufResult=compare(line,key,value);
+                        if(bufResult!=null)
+                            buf.add(bufResult);
+                    } else {
+                        break;
+                    }
+                } catch (IOException ex) {
+                    log.log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return buf;
+    }
     boolean openInputStream() {
         try {
             br = new BufferedReader(
@@ -102,8 +122,10 @@ public class bracketsDictionary implements Dictionary {
            buf = iterator.next();
            return buf;          
         }
-        else
+        else{
+            iterator = resultList.iterator();
             return null;
+        }
     }
 
     @Override
@@ -140,5 +162,16 @@ public class bracketsDictionary implements Dictionary {
 //            }
 //        }
     }
-
+    private resultObj compare(String line, String key, String value) {
+        return(compareKeyValue(line.split(";"),key,value)); 
+    }
+    private resultObj compareKeyValue(String[] splitLine, String key, String value){
+        for(int i=1;i<splitLine.length;i++){
+            String[] split = splitLine[i].split("=");
+            if(split[0].equals(key) && split[1].equals(value)){
+                return(new bracketsResultObj(splitLine));
+            }
+        }
+        return null;
+    }    
 }
